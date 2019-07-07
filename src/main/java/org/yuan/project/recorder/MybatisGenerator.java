@@ -21,7 +21,7 @@ public class MybatisGenerator {
 
     // 数据表
     public static final String[] TABLES = {
-        "TEST"
+        "BASE"
     };
 
     public static void main (String[] args) {
@@ -56,9 +56,10 @@ public class MybatisGenerator {
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
         gen.setGlobalConfig(gc);
 
+
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:h2:" + "E:/h2/test");
+        dsc.setUrl("jdbc:h2:" + BASE_PATH + "/src/main/resources/h2/recorder");
         // dsc.setSchemaName("public");
         dsc.setDriverName("org.h2.Driver");
         dsc.setUsername("SA");
@@ -72,29 +73,7 @@ public class MybatisGenerator {
         gen.setPackageInfo(pc);
 
         // 自定义配置
-        InjectionConfig cfg = new InjectionConfig() {
-            @Override
-            public void initMap() {
-                // to do nothing
-            }
-        };
-
-        // 如果模板引擎是 freemarker
-        String templatePath = "/templates/mapper.xml.ftl";
-
-        // 自定义输出配置
-        List<FileOutConfig> focList = new ArrayList<>();
-        // 自定义配置会被优先输出
-        focList.add(new FileOutConfig(templatePath) {
-            @Override
-            public String outputFile(TableInfo tableInfo) {
-                // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return BASE_PATH + "/src/main/resources/mapper/"
-                        + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
-            }
-        });
-        cfg.setFileOutConfigList(focList);
-        gen.setCfg(cfg);
+        gen.setCfg(setInjectionConfig());
 
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig();
@@ -124,6 +103,49 @@ public class MybatisGenerator {
         gen.setStrategy(strategy);
         gen.setTemplateEngine(new FreemarkerTemplateEngine());
         gen.execute();
+    }
+
+    private static InjectionConfig setInjectionConfig() {
+        InjectionConfig cfg = new InjectionConfig() {
+            @Override
+            public void initMap() {
+                // to do nothing
+            }
+        };
+
+        // 自定义输出配置
+        List<FileOutConfig> focList = new ArrayList<>();
+        // 自定义配置会被优先输出
+        focList.add(new FileOutConfig("/templates/mapper.xml.ftl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
+                return BASE_PATH + "/src/main/resources/mapper/"
+                        + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+            }
+        });
+//        focList.add(new FileOutConfig("/templates/business.java.ftl") {
+//            @Override
+//            public String outputFile(TableInfo tableInfo) {
+//                return null;
+//            }
+//        });
+//        focList.add(new FileOutConfig("/templates/businessImpl.java.ftl") {
+//            @Override
+//            public String outputFile(TableInfo tableInfo) {
+//                return null;
+//            }
+//        });
+//        focList.add(new FileOutConfig("/templates/fo" +
+//                ".java.ftl") {
+//            @Override
+//            public String outputFile(TableInfo tableInfo) {
+//                return null;
+//            }
+//        });
+        cfg.setFileOutConfigList(focList);
+
+        return cfg;
     }
 
     private static String[] getFields(Class<?> cls) {
