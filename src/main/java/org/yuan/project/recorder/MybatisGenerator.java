@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import org.yuan.project.recorder.controller.BaseController;
 import org.yuan.project.recorder.entity.BaseEntity;
+import org.yuan.project.recorder.mapper.BaseMapper;
 import org.yuan.project.recorder.service.BaseService;
 import org.yuan.project.recorder.service.impl.BaseServiceImpl;
 
@@ -21,30 +22,31 @@ public class MybatisGenerator {
 
     // 数据表
     public static final String[] TABLES = {
-        "BASE"
+        "DEMO"
     };
 
     public static void main (String[] args) {
-        generate();
+        make();
     }
 
     public static void test() {
         try {
-//            System.out.println(new File("").getAbsolutePath().replace("\\", "/"));
-
 //            Properties props = System.getProperties();
 //            props.forEach((t, u) -> {
 //                System.out.println(t + ": " + u);
 //            });
 
+            // 获取包名
             System.out.println(MybatisGenerator.class.getPackage().getName());
+            // 获取项目路径
+            System.out.println(System.getProperty("user.dir"));
         }
         catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public static void generate() {
+    public static void make() {
         // 代码生成器
         AutoGenerator gen = new AutoGenerator();
 
@@ -53,6 +55,8 @@ public class MybatisGenerator {
         gc.setOutputDir(BASE_PATH + "/src/main/java");
         gc.setAuthor("chenpeiyuan");
         gc.setOpen(false);
+        gc.setBaseColumnList(true);
+        gc.setBaseResultMap(true);
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
         gen.setGlobalConfig(gc);
 
@@ -83,7 +87,6 @@ public class MybatisGenerator {
         // templateConfig.setEntity("templates/entity2.java");
         // templateConfig.setService();
         // templateConfig.setController();
-
         templateConfig.setXml(null);
         gen.setTemplate(templateConfig);
 
@@ -96,6 +99,7 @@ public class MybatisGenerator {
         strategy.setSuperServiceImplClass(BaseServiceImpl.class.getName());
         strategy.setSuperServiceClass(BaseService.class.getName());
         strategy.setSuperControllerClass(BaseController.class.getName());
+        strategy.setSuperMapperClass(BaseMapper.class.getName());
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         strategy.setInclude(TABLES);
@@ -150,7 +154,7 @@ public class MybatisGenerator {
 
     private static String[] getFields(Class<?> cls) {
         return new String[]{
-
+            "ID", "UPDATE_TIME", "CREATE_TIME", "CREATER_ID", "UPDATER_ID", "VALID"
         };
     }
 }
