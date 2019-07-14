@@ -44,3 +44,211 @@ org.h2.message.DbException: Wrong user name or password [28000-197]
 Caused by: org.h2.jdbc.JdbcSQLException: Wrong user name or password [28000-197]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
 	... 19 more
+2019-07-15 00:38:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "任务标题" not found; SQL statement:
+CREATE TABLE TASK (
+    ID BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    TITLE VARCHAR(256) NOT NULL COMMENT "任务标题",
+    INTRO VARCHAR(MAX) NOT NULL COMMENT "任务简介",
+    STATUS TINYINT NOT NULL COMMENT "任务状态",
+
+    EXPECT_ELAPSE INT NOT NULL COMMENT "预计耗时",
+    ACTUAL_ELAPSE INT NOT NULL COMMENT "实际耗时",
+
+    EXPECT_START_TIME DATETIME NOT NULL COMMENT "预计开始时间",
+    EXPECT_FINIS_TIME DATETIME NOT NULL COMMENT "预计结束时间",
+
+    START_TIME DATETIME,
+    PAUSE_TIME DATETIME,
+    SUBMIT_TIME DATETIME,
+    FINISH_TIME DATETIME,
+
+    UPDATE_TIME DATETIME NOT NULL,
+    CREATE_TIME DATETIME NOT NULL,
+    CREATER_ID BIGINT NOT NULL,
+    UPDATER_ID BIGINT NOT NULL,
+    VALID TINYINT NOT NULL
+) [42122-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:150)
+	at org.h2.command.Parser.readString(Parser.java:3452)
+	at org.h2.command.Parser.readCommentIf(Parser.java:4318)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:4296)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:6662)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:6570)
+	at org.h2.command.Parser.parseCreate(Parser.java:4615)
+	at org.h2.command.Parser.parsePrepared(Parser.java:380)
+	at org.h2.command.Parser.parse(Parser.java:335)
+	at org.h2.command.Parser.parse(Parser.java:307)
+	at org.h2.command.Parser.prepareCommand(Parser.java:278)
+	at org.h2.engine.Session.prepareLocal(Session.java:611)
+	at org.h2.engine.Session.prepareCommand(Session.java:549)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1247)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:1077)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1386)
+	at org.h2.server.web.WebApp.query(WebApp.java:1060)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1022)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1009)
+	at org.h2.server.web.WebThread.process(WebThread.java:165)
+	at org.h2.server.web.WebThread.run(WebThread.java:90)
+	at java.lang.Thread.run(Unknown Source)
+2019-07-15 00:39:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "任务标题" not found; SQL statement:
+CREATE TABLE TASK (
+    ID BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    TITLE VARCHAR(256) NOT NULL COMMENT "任务标题",
+    INTRO VARCHAR(MAX) NOT NULL,
+    STATUS TINYINT NOT NULL,
+
+    EXPECT_ELAPSE INT NOT NULL,
+    ACTUAL_ELAPSE INT NOT NULL,
+
+    EXPECT_START_TIME DATETIME NOT NULL,
+    EXPECT_FINIS_TIME DATETIME NOT NULL,
+
+    START_TIME DATETIME,
+    PAUSE_TIME DATETIME,
+    SUBMIT_TIME DATETIME,
+    FINISH_TIME DATETIME,
+
+    UPDATE_TIME DATETIME NOT NULL,
+    CREATE_TIME DATETIME NOT NULL,
+    CREATER_ID BIGINT NOT NULL,
+    UPDATER_ID BIGINT NOT NULL,
+    VALID TINYINT NOT NULL
+) [42122-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:150)
+	at org.h2.command.Parser.readString(Parser.java:3452)
+	at org.h2.command.Parser.readCommentIf(Parser.java:4318)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:4296)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:6662)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:6570)
+	at org.h2.command.Parser.parseCreate(Parser.java:4615)
+	at org.h2.command.Parser.parsePrepared(Parser.java:380)
+	at org.h2.command.Parser.parse(Parser.java:335)
+	at org.h2.command.Parser.parse(Parser.java:307)
+	at org.h2.command.Parser.prepareCommand(Parser.java:278)
+	at org.h2.engine.Session.prepareLocal(Session.java:611)
+	at org.h2.engine.Session.prepareCommand(Session.java:549)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1247)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:1077)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1386)
+	at org.h2.server.web.WebApp.query(WebApp.java:1060)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1022)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1009)
+	at org.h2.server.web.WebThread.process(WebThread.java:165)
+	at org.h2.server.web.WebThread.run(WebThread.java:90)
+	at java.lang.Thread.run(Unknown Source)
+2019-07-15 00:40:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "任务标题" not found; SQL statement:
+CREATE TABLE TASK (
+    ID BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    TITLE VARCHAR(256) NOT NULL COMMENT 任务标题,
+    INTRO VARCHAR(MAX) NOT NULL,
+    STATUS TINYINT NOT NULL,
+
+    EXPECT_ELAPSE INT NOT NULL,
+    ACTUAL_ELAPSE INT NOT NULL,
+
+    EXPECT_START_TIME DATETIME NOT NULL,
+    EXPECT_FINIS_TIME DATETIME NOT NULL,
+
+    START_TIME DATETIME,
+    PAUSE_TIME DATETIME,
+    SUBMIT_TIME DATETIME,
+    FINISH_TIME DATETIME,
+
+    UPDATE_TIME DATETIME NOT NULL,
+    CREATE_TIME DATETIME NOT NULL,
+    CREATER_ID BIGINT NOT NULL,
+    UPDATER_ID BIGINT NOT NULL,
+    VALID TINYINT NOT NULL
+) [42122-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:150)
+	at org.h2.command.Parser.readString(Parser.java:3452)
+	at org.h2.command.Parser.readCommentIf(Parser.java:4318)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:4296)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:6662)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:6570)
+	at org.h2.command.Parser.parseCreate(Parser.java:4615)
+	at org.h2.command.Parser.parsePrepared(Parser.java:380)
+	at org.h2.command.Parser.parse(Parser.java:335)
+	at org.h2.command.Parser.parse(Parser.java:307)
+	at org.h2.command.Parser.prepareCommand(Parser.java:278)
+	at org.h2.engine.Session.prepareLocal(Session.java:611)
+	at org.h2.engine.Session.prepareCommand(Session.java:549)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1247)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:1077)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1386)
+	at org.h2.server.web.WebApp.query(WebApp.java:1060)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1022)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1009)
+	at org.h2.server.web.WebThread.process(WebThread.java:165)
+	at org.h2.server.web.WebThread.run(WebThread.java:90)
+	at java.lang.Thread.run(Unknown Source)
+2019-07-15 00:40:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "任务标题" not found; SQL statement:
+CREATE TABLE TASK (
+    ID BIGINT PRIMARY KEY AUTO_INCREMENT,
+
+    TITLE VARCHAR(256) NOT NULL COMMENT 任务标题,
+    INTRO VARCHAR(MAX) NOT NULL,
+    STATUS TINYINT NOT NULL,
+
+    EXPECT_ELAPSE INT NOT NULL,
+    ACTUAL_ELAPSE INT NOT NULL,
+
+    EXPECT_START_TIME DATETIME NOT NULL,
+    EXPECT_FINIS_TIME DATETIME NOT NULL,
+
+    START_TIME DATETIME,
+    PAUSE_TIME DATETIME,
+    SUBMIT_TIME DATETIME,
+    FINISH_TIME DATETIME,
+
+    UPDATE_TIME DATETIME NOT NULL,
+    CREATE_TIME DATETIME NOT NULL,
+    CREATER_ID BIGINT NOT NULL,
+    UPDATER_ID BIGINT NOT NULL,
+    VALID TINYINT NOT NULL
+) [42122-197]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:357)
+	at org.h2.message.DbException.get(DbException.java:179)
+	at org.h2.message.DbException.get(DbException.java:155)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:150)
+	at org.h2.command.Parser.readString(Parser.java:3452)
+	at org.h2.command.Parser.readCommentIf(Parser.java:4318)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:4296)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:6662)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:6570)
+	at org.h2.command.Parser.parseCreate(Parser.java:4615)
+	at org.h2.command.Parser.parsePrepared(Parser.java:380)
+	at org.h2.command.Parser.parse(Parser.java:335)
+	at org.h2.command.Parser.parse(Parser.java:307)
+	at org.h2.command.Parser.prepareCommand(Parser.java:278)
+	at org.h2.engine.Session.prepareLocal(Session.java:611)
+	at org.h2.engine.Session.prepareCommand(Session.java:549)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1247)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:217)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:1077)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1386)
+	at org.h2.server.web.WebApp.query(WebApp.java:1060)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1022)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1009)
+	at org.h2.server.web.WebThread.process(WebThread.java:165)
+	at org.h2.server.web.WebThread.run(WebThread.java:90)
+	at java.lang.Thread.run(Unknown Source)

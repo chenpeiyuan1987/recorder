@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yuan.project.recorder.mapper.TaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="org.yuan.project.recorder.entity.Task">
+    <result column="ID" property="id" />
+    <result column="UPDATE_TIME" property="updateTime" />
+    <result column="CREATE_TIME" property="createTime" />
+    <result column="CREATER_ID" property="createrId" />
+    <result column="UPDATER_ID" property="updaterId" />
+    <result column="VALID" property="valid" />
+        <result column="TITLE" property="title" />
+        <result column="INTRO" property="intro" />
+        <result column="STATUS" property="status" />
+        <result column="EXPECT_ELAPSE" property="expectElapse" />
+        <result column="ACTUAL_ELAPSE" property="actualElapse" />
+        <result column="EXPECT_START_TIME" property="expectStartTime" />
+        <result column="EXPECT_FINIS_TIME" property="expectFinisTime" />
+        <result column="START_TIME" property="startTime" />
+        <result column="PAUSE_TIME" property="pauseTime" />
+        <result column="SUBMIT_TIME" property="submitTime" />
+        <result column="FINISH_TIME" property="finishTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID,
+        UPDATE_TIME,
+        CREATE_TIME,
+        CREATER_ID,
+        UPDATER_ID,
+        VALID,
+        TITLE, INTRO, STATUS, EXPECT_ELAPSE, ACTUAL_ELAPSE, EXPECT_START_TIME, EXPECT_FINIS_TIME, START_TIME, PAUSE_TIME, SUBMIT_TIME, FINISH_TIME
+    </sql>
+
+</mapper>

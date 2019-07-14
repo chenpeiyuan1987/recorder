@@ -22,7 +22,7 @@ public class MybatisGenerator {
 
     // 数据表
     public static final String[] TABLES = {
-        "DEMO"
+        "TASK", "ELAPSE"
     };
 
     public static void main (String[] args) {
