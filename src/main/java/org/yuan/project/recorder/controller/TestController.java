@@ -2,6 +2,7 @@ package org.yuan.project.recorder.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,10 +20,10 @@ public class TestController {
     @Autowired
     private IDemoService demoService;
 
-    @ResponseBody
     @GetMapping("/index")
-    public Object index() {
-        return "hello, I'm recorder";
+    public String index(Model model) {
+        model.addAttribute("result", "success");
+        return "test/index";
     }
 
     @ResponseBody
