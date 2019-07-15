@@ -1,0 +1,1 @@
+<script src="/lib/node_modules/layui-src/dist/layui.js"></script>
