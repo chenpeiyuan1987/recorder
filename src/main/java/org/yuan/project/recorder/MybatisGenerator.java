@@ -14,11 +14,14 @@ import org.yuan.project.recorder.service.BaseService;
 import org.yuan.project.recorder.service.impl.BaseServiceImpl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MybatisGenerator {
     // 项目路径
     public static final String BASE_PATH = System.getProperty("user.dir");
+    public static final String PACKAGE = MybatisGenerator.class.getPackage().getName();
 
     // 数据表
     public static final String[] TABLES = {
@@ -73,7 +76,7 @@ public class MybatisGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         //pc.setModuleName(scanner("模块名"));
-        pc.setParent(MybatisGenerator.class.getPackage().getName());
+        pc.setParent(PACKAGE);
         gen.setPackageInfo(pc);
 
         // 自定义配置
@@ -114,6 +117,11 @@ public class MybatisGenerator {
             @Override
             public void initMap() {
                 // to do nothing
+                if (getMap() == null) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("package", PACKAGE);
+                    setMap(map);
+                }
             }
         };
 
@@ -128,25 +136,38 @@ public class MybatisGenerator {
                         + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
-//        focList.add(new FileOutConfig("/templates/business.java.ftl") {
-//            @Override
-//            public String outputFile(TableInfo tableInfo) {
-//                return null;
-//            }
-//        });
-//        focList.add(new FileOutConfig("/templates/businessImpl.java.ftl") {
-//            @Override
-//            public String outputFile(TableInfo tableInfo) {
-//                return null;
-//            }
-//        });
-//        focList.add(new FileOutConfig("/templates/fo" +
-//                ".java.ftl") {
-//            @Override
-//            public String outputFile(TableInfo tableInfo) {
-//                return null;
-//            }
-//        });
+
+        String base = String.format("%s/src/main/java/%s", BASE_PATH, PACKAGE.replace(".", "/"));
+        focList.add(new FileOutConfig("/templates/business.java.ftl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                return base + "/business/" + tableInfo.getEntityName() + "Business" + StringPool.DOT_JAVA;
+            }
+        });
+        focList.add(new FileOutConfig("/templates/businessImpl.java.ftl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                return base + "/business/impl/" + tableInfo.getEntityName() + "BusinessImpl" + StringPool.DOT_JAVA;
+            }
+        });
+        focList.add(new FileOutConfig("/templates/so.java.ftl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                return base + "/vessel/send/" + tableInfo.getEntityName() + "So" + StringPool.DOT_JAVA;
+            }
+        });
+        focList.add(new FileOutConfig("/templates/ro.java.ftl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                return base + "/vessel/read/" + tableInfo.getEntityName() + "Ro" + StringPool.DOT_JAVA;
+            }
+        });
+        focList.add(new FileOutConfig("/templates/fo.java.ftl") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                return base + "/vessel/find/" + tableInfo.getEntityName() + "Fo" + StringPool.DOT_JAVA;
+            }
+        });
         cfg.setFileOutConfigList(focList);
 
         return cfg;
