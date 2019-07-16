@@ -1,6 +1,9 @@
 package org.yuan.project.recorder.utils;
 
+import lombok.Data;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 public class Result {
@@ -50,5 +53,36 @@ public class Result {
 
     public static Result failure (Integer code, String info) {
         return new Result(code, info, null);
+    }
+
+    //-------------------------------------------
+    // 分页对象
+    //-------------------------------------------
+    @Data
+    public static class Page<T> {
+        /**
+         * 当页数据
+         */
+        private List<T> list;
+
+        /**
+         * 总页数
+         */
+        private Integer total;
+
+        /**
+         * 当前页数
+         */
+        private Integer curr;
+
+        /**
+         * 页记录数
+         */
+        private Integer size;
+
+        /**
+         * 记录总数
+         */
+        private Integer count;
     }
 }

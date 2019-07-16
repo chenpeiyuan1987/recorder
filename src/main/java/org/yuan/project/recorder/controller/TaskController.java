@@ -1,9 +1,14 @@
 package org.yuan.project.recorder.controller;
 
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.yuan.project.recorder.business.TaskBusiness;
 import org.yuan.project.recorder.utils.Result;
+import org.yuan.project.recorder.vessel.read.TaskRo;
 
 /**
  * 任务接口
@@ -11,19 +16,27 @@ import org.yuan.project.recorder.utils.Result;
  * @author chenpeiyuan
  * @since 2019-07-15
  */
+@Slf4j
 @RestController
 @RequestMapping("/task")
 public class TaskController extends BaseController {
 
+    @Autowired
+    private TaskBusiness taskBusiness;
+
     /**
      * 分页信息
      *
-     * @param page
+     * @param curr
      * @param size
      * @return
      */
-    public Object page(int page, int size) {
-        return Result.failure("接口未实现");
+    @PostMapping("/page")
+    public Object page(int curr, int size) {
+
+        Object result = taskBusiness.page(curr, size, null);
+
+        return Result.success(result);
     }
 
     /**
@@ -31,8 +44,12 @@ public class TaskController extends BaseController {
      * @param id
      * @return
      */
+    @PostMapping("/info")
     public Object info(long id) {
-        return Result.failure("接口未实现");
+
+        Object info = taskBusiness.info(id);
+
+        return Result.success(info);
     }
 
     /**
@@ -40,8 +57,12 @@ public class TaskController extends BaseController {
      * @param id
      * @return
      */
+    @PostMapping("/start")
     public Object start(long id) {
-        return Result.failure("接口未实现");
+
+        taskBusiness.start(id, getUserId());
+
+        return Result.success();
     }
 
     /**
@@ -49,8 +70,12 @@ public class TaskController extends BaseController {
      * @param id
      * @return
      */
+    @PostMapping("/pause")
     public Object pause(long id) {
-        return Result.failure("接口未实现");
+
+        taskBusiness.pause(id, getUserId());
+
+        return Result.success();
     }
 
     /**
@@ -58,17 +83,54 @@ public class TaskController extends BaseController {
      * @param id
      * @return
      */
+    @PostMapping("/submit")
     public Object submit(long id) {
-        return Result.failure("接口未实现");
+
+        taskBusiness.submit(id, getUserId());
+
+        return Result.success();
     }
 
     /**
      * 完成任务
+     *
      * @param id
      * @return
      */
+    @PostMapping("/finish")
     public Object finish(long id) {
-        return Result.failure("接口未实现");
+
+        taskBusiness.finish(id, getUserId());
+
+        return Result.success();
+    }
+
+    /**
+     * 删除任务
+     *
+     * @param id
+     * @return
+     */
+    @PostMapping("/delete")
+    public Object delete(long id) {
+
+        taskBusiness.delete(id, getUserId());
+
+        return Result.success();
+    }
+
+    /**
+     * 添加、修改任务
+     *
+     * @param ro
+     * @return
+     */
+    @PostMapping("/save")
+    public Object save(TaskRo ro) {
+
+        taskBusiness.save(ro, getUserId());
+
+        return Result.success();
     }
 
 }

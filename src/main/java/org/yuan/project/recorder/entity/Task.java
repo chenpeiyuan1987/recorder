@@ -1,12 +1,12 @@
 package org.yuan.project.recorder.entity;
 
-import org.yuan.project.recorder.entity.BaseEntity;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -23,6 +23,27 @@ import lombok.experimental.Accessors;
 public class Task extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 未启动
+     */
+    public static final int STATUS_0 = 0;
+    /**
+     * 已启动
+     */
+    public static final int STATUS_1 = 1;
+    /**
+     * 已暂停
+     */
+    public static final int STATUS_2 = 2;
+    /**
+     * 已提交
+     */
+    public static final int STATUS_3 = 3;
+    /**
+     * 已完成
+     */
+    public static final int STATUS_4 = 4;
 
     /**
      * 任务标题

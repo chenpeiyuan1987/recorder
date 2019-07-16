@@ -21,6 +21,11 @@ import java.io.Serializable;
 public class TaskRo implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 任务标识
+     */
+    private Integer id;
     /**
      * 任务标题
      */

@@ -40,7 +40,7 @@ public class BaseEntity implements Serializable {
     private Integer valid;
 
     /**
-     * 创建时初始化字段
+     * 创建时
      * @param userId
      */
     public void initCreate(long userId) {
@@ -51,4 +51,26 @@ public class BaseEntity implements Serializable {
         this.createTime = time;
         this.valid = VALID_1;
     }
+
+    /**
+     * 更新时
+     * @param userId
+     */
+    public void initUpdate(long userId) {
+        LocalDateTime time = LocalDateTime.now();
+        this.updaterId = userId;
+        this.updateTime = time;
+    }
+
+    /**
+     * 更新时
+     * @param userId
+     */
+    public void initDelete(long userId) {
+        LocalDateTime time = LocalDateTime.now();
+        this.updaterId = userId;
+        this.updateTime = time;
+        this.valid = VALID_0;
+    }
+
 }

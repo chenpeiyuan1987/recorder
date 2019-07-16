@@ -75,6 +75,13 @@
       <version>1.18.8</version>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>com.github.dozermapper</groupId>
+      <artifactId>dozer-core</artifactId>
+      <version>6.5.0</version>
+    </dependency>
+
   </dependencies>
 
   <build>
