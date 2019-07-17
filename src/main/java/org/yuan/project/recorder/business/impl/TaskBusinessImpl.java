@@ -1,5 +1,7 @@
 package org.yuan.project.recorder.business.impl;
 
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,12 +35,19 @@ public class TaskBusinessImpl extends BaseBusinessImpl implements TaskBusiness {
 
     @Override
     public Result.Page<TaskSo> page(int curr, int size, TaskFo fo) {
-        return null;
+        Page<Task> page = new Page<>(curr, size);
+        page.addOrder(OrderItem.desc("id"));
+
+        service.page(page);
+
+        return convert(page, TaskSo.class);
     }
 
     @Override
     public TaskSo info(long id) {
-        return null;
+        Task task = service.getById(id);
+
+        return convert(task, TaskSo.class);
     }
 
     @Override
@@ -121,12 +130,30 @@ public class TaskBusinessImpl extends BaseBusinessImpl implements TaskBusiness {
     public void save(TaskRo ro, long userId) {
         // 添加
         if (ro.getId() == null) {
+            // 参数校验
 
+            // 添加记录
+            Task task = convert(ro, Task.class);
+            task.setStatus(Task.STATUS_0);
+            task.initCreate(userId);
+
+            if (!service.save(task)) {
+                throw new Fault("添加任务失败");
+            }
         }
 
         // 修改
         else {
+            // 参数校验
 
+
+            // 修改记录
+            Task task = convert(ro, Task.class);
+            task.initUpdate(userId);
+
+            if (!service.updateById(task)) {
+                throw new Fault("修改任务失败");
+            }
         }
     }
 

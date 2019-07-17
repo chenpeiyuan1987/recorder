@@ -68,21 +68,21 @@ public class Result {
         /**
          * 总页数
          */
-        private Integer total;
+        private Long pages;
 
         /**
          * 当前页数
          */
-        private Integer curr;
+        private Long curr;
 
         /**
          * 页记录数
          */
-        private Integer size;
+        private Long size;
 
         /**
          * 记录总数
          */
-        private Integer count;
+        private Long total;
     }
 }

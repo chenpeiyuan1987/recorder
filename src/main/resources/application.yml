@@ -36,3 +36,5 @@ spring:
 logging:
   level.org.yuan.project.recorder: debug
 
+dozer:
+  mapping-files: classpath*:/dozer/*mapping.xml
