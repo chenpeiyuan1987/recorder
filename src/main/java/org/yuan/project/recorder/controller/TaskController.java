@@ -33,6 +33,7 @@ public class TaskController extends BaseController {
      */
     @PostMapping("/page")
     public Object page(int curr, int size) {
+        log.info("获取任务分页");
 
         Object result = taskBusiness.page(curr, size, null);
 
@@ -46,6 +47,7 @@ public class TaskController extends BaseController {
      */
     @PostMapping("/info")
     public Object info(long id) {
+        log.info("获取任务信息");
 
         Object info = taskBusiness.info(id);
 
@@ -59,6 +61,7 @@ public class TaskController extends BaseController {
      */
     @PostMapping("/start")
     public Object start(long id) {
+        log.info("启动任务");
 
         taskBusiness.start(id, getUserId());
 
@@ -72,6 +75,7 @@ public class TaskController extends BaseController {
      */
     @PostMapping("/pause")
     public Object pause(long id) {
+        log.info("暂停任务");
 
         taskBusiness.pause(id, getUserId());
 
@@ -85,6 +89,7 @@ public class TaskController extends BaseController {
      */
     @PostMapping("/submit")
     public Object submit(long id) {
+        log.info("提交任务");
 
         taskBusiness.submit(id, getUserId());
 
@@ -99,6 +104,7 @@ public class TaskController extends BaseController {
      */
     @PostMapping("/finish")
     public Object finish(long id) {
+        log.info("完成任务");
 
         taskBusiness.finish(id, getUserId());
 
@@ -113,6 +119,7 @@ public class TaskController extends BaseController {
      */
     @PostMapping("/delete")
     public Object delete(long id) {
+        log.info("删除任务");
 
         taskBusiness.delete(id, getUserId());
 
@@ -127,6 +134,7 @@ public class TaskController extends BaseController {
      */
     @PostMapping("/save")
     public Object save(TaskRo ro) {
+        log.info("保存任务");
 
         taskBusiness.save(ro, getUserId());
 

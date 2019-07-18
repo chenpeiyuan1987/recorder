@@ -1,15 +1,14 @@
 {
-  "name": "package",
+  "name": "recorder",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "chenpeiyuan",
   "license": "ISC",
   "dependencies": {
-    "jquery": "^3.4.1",
     "layui-src": "^2.5.4"
   }
 }
