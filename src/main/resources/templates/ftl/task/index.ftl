@@ -3,7 +3,7 @@
 
 <html lang="en">
 <head>
-    <@f.head />
+    <@f.head/>
 </head>
 
 <body>

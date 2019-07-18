@@ -12,7 +12,9 @@ layui.define(['jquery', 'table'], function (exports) {
             return d.priorityName;
         }
     };
-    table.render({
+    let event = {
+    };
+    let inst = table.render({
         elem: '#table',
         toolbar: '#toolbar',
         page: true,
@@ -50,6 +52,15 @@ layui.define(['jquery', 'table'], function (exports) {
             {title: '预计结束时间', field:'expectFinisTime'},
             {title: '创建时间', field:'createTime'},
         ]],
+    });
+
+    let filter = inst.config.elem.attr('lay-filter');
+    table.on('toolbar(' + filter + ')', function (obj) {
+        layer.open({
+            type: 2,
+            content: ['/web/task/save'],
+            area: ['600px', '800px'],
+        });
     });
 
     exports('task/index', {});
