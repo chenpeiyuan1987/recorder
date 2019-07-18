@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ * 任务信息
  * </p>
  *
  * @author chenpeiyuan
- * @since 2019-07-15
+ * @since 2019-07-18
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -46,6 +46,12 @@ public class Task extends BaseEntity {
     public static final int STATUS_4 = 4;
 
     /**
+     * 计划标识
+     */
+    @TableField("PLAN_ID")
+    private Long planId;
+
+    /**
      * 任务标题
      */
     @TableField("TITLE")
@@ -56,6 +62,24 @@ public class Task extends BaseEntity {
      */
     @TableField("INTRO")
     private String intro;
+
+    /**
+     * 任务类型
+     */
+    @TableField("TYPE")
+    private Integer type;
+
+    /**
+     * 任务级别
+     */
+    @TableField("LEVEL")
+    private Integer level;
+
+    /**
+     * 任务报告
+     */
+    @TableField("REPORT")
+    private String report;
 
     /**
      * 任务状态
@@ -80,6 +104,12 @@ public class Task extends BaseEntity {
      */
     @TableField("EXPECT_START_TIME")
     private LocalDateTime expectStartTime;
+
+    /**
+     * 预计暂停时间
+     */
+    @TableField("EXPECT_PAUSE_TIME")
+    private LocalDateTime expectPauseTime;
 
     /**
      * 预计结束时间
@@ -110,6 +140,5 @@ public class Task extends BaseEntity {
      */
     @TableField("FINISH_TIME")
     private LocalDateTime finishTime;
-
 
 }

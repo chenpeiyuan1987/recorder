@@ -5,7 +5,8 @@ spring:
   # 数据库
   datasource:
     driverClassName: org.h2.Driver
-    url: jdbc:h2:/D:/idea-workspace/IdeaProjects/recorder/src/main/resources/h2/recorder
+    url: jdbc:h2:/${user.dir}/src/main/resources/h2/recorder
+    #url: jdbc:h2:/D:/h2/recorder
     username: SA
     password:
   # 客户端
