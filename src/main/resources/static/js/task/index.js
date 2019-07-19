@@ -1,4 +1,4 @@
-layui.define(['jquery', 'table'], function (exports) {
+layui.use(['jquery', 'table'], function () {
     let table = layui.table;
 
     let templet = {
@@ -62,6 +62,4 @@ layui.define(['jquery', 'table'], function (exports) {
             area: ['600px', '800px'],
         });
     });
-
-    exports('task/index', {});
 });

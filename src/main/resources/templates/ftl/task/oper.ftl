@@ -36,13 +36,11 @@
                 <@text label="预计耗时" name="expectElapse" />
             </div>
         </div>
-
         <div class="layui-row layui-col-space5">
             <div class="layui-col-xs6">
                 <@text label="预计结束时间" name="expectStartTime" />
             </div>
         </div>
-
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">任务简介</label>
             <div class="layui-input-block">
@@ -50,7 +48,46 @@
             </div>
         </div>
 
-        <button class="layui-btn layui-hide" lay-submit lay-filter="save">确认</button>
+        <#--
+        <div class="layui-row layui-col-space5">
+            <div class="layui-col-xs6">
+                <@text label="预计结束时间" name="expectFinisTime" />
+            </div>
+            <div class="layui-col-xs6">
+                <@text label="实际耗时" name="actualElapse" />
+            </div>
+        </div>
+        <div class="layui-row layui-col-space5">
+            <div class="layui-col-xs6">
+                <@text label="启动时间" name="startTime" />
+            </div>
+            <div class="layui-col-xs6">
+                <@text label="暂停时间" name="pauseTime" />
+            </div>
+        </div>
+        <div class="layui-row layui-col-space5">
+            <div class="layui-col-xs6">
+                <@text label="提交时间" name="submitTime" />
+            </div>
+            <div class="layui-col-xs6">
+                <@text label="完成时间" name="finisTime" />
+            </div>
+        </div>
+        <div class="layui-row layui-col-space5">
+            <div class="layui-col-xs6">
+                <@text label="创建时间" name="createTime" />
+            </div>
+            <div class="layui-col-xs6">
+                <@text label="任务状态" name="status" />
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">任务报告</label>
+            <div class="layui-input-block">
+                <textarea name="report" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+        -->
     </div>
 </body>
 
