@@ -13,39 +13,42 @@ layui.use(['jquery', 'table'], function () {
         }
     };
     let event = {
+        insert: function () {
+            layer.open({
+                type: 2,
+                title: '添加任务',
+                content: ['/web/task/save'],
+                area: ['600px', '800px'],
+            });
+        },
+        update: function (data) {
+            layer.open({
+                type: 2,
+                title: '编辑任务',
+                content: ['/web/task/save'],
+                area: ['600px', '800px'],
+            });
+        },
+        delete：function (data) {
+        }
     };
     let inst = table.render({
+        url: '/api/task/page',
+        method: 'POST',
         elem: '#table',
         toolbar: '#toolbar',
         page: true,
+        /*
         data: [
             {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
-            {title: '任务1', createTime: '2019-07-18'},
         ],
+        */
         cols: [[
             {type: 'checkbox'},
             {title: '任务名称', field:'title'},
             {title: '任务状态', field:'status', templet: templet.status},
             {title: '任务类型', field:'type', templet: templet.type},
-            {title: '优先级', field:'priority', templet: templet.priority},
+            {title: '任务级别', field:'priority', templet: templet.priority},
             {title: '实际耗时', field:'actualElapse'},
             {title: '预计耗时', field:'expectElapse'},
             {title: '预计开始时间', field:'expectStartTime'},

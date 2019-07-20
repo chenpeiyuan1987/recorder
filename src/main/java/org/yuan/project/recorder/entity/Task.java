@@ -7,6 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -44,6 +46,59 @@ public class Task extends BaseEntity {
      * 已完成
      */
     public static final int STATUS_4 = 4;
+    public static final Map<Integer, String> STATUS_MAP;
+
+    /**
+     * 一般
+     */
+    public static final int LEVEL_10 = 10;
+    /**
+     * 重要
+     */
+    public static final int LEVEL_20 = 20;
+    /**
+     * 紧急
+     */
+    public static final int LEVEL_30 = 30;
+    public static final Map<Integer, String> LEVEL_MAP;
+
+    /**
+     * 新增功能
+     */
+    public static final int TYPE_1 = 1;
+    /**
+     * 完善功能
+     */
+    public static final int TYPE_2 = 2;
+    /**
+     * 学习研究
+     */
+    public static final int TYPE_3 = 3;
+    /**
+     * 修复故障
+     */
+    public static final int TYPE_4 = 4;
+    public static final Map<Integer, String> TYPE_MAP;
+
+    static {
+        STATUS_MAP = new HashMap<>();
+        STATUS_MAP.put(STATUS_0, "未启动");
+        STATUS_MAP.put(STATUS_1, "已启动");
+        STATUS_MAP.put(STATUS_2, "已暂停");
+        STATUS_MAP.put(STATUS_3, "已提交");
+        STATUS_MAP.put(STATUS_4, "已完成");
+
+        LEVEL_MAP = new HashMap<>();
+        LEVEL_MAP.put(LEVEL_10, "一般");
+        LEVEL_MAP.put(LEVEL_20, "重要");
+        LEVEL_MAP.put(LEVEL_30, "紧急");
+
+        TYPE_MAP = new HashMap<>();
+        TYPE_MAP.put(TYPE_1, "新增功能");
+        TYPE_MAP.put(TYPE_2, "完善功能");
+        TYPE_MAP.put(TYPE_3, "学习研究");
+        TYPE_MAP.put(TYPE_4, "修复故障");
+    }
 
     /**
      * 计划标识

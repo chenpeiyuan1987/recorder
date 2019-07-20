@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.yuan.project.recorder.business.TaskBusiness;
+import org.yuan.project.recorder.entity.Task;
 import org.yuan.project.recorder.utils.Result;
 import org.yuan.project.recorder.vessel.read.TaskRo;
 
@@ -18,7 +19,7 @@ import org.yuan.project.recorder.vessel.read.TaskRo;
  */
 @Slf4j
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/api/task")
 public class TaskController extends BaseController {
 
     @Autowired
@@ -139,6 +140,11 @@ public class TaskController extends BaseController {
         taskBusiness.save(ro, getUserId());
 
         return Result.success();
+    }
+
+    @PostMapping("/cst")
+    public Object cst(String[] names) {
+        return Result.success(cst(Task.class, names));
     }
 
 }
