@@ -38,11 +38,6 @@ layui.use(['jquery', 'table'], function () {
         elem: '#table',
         toolbar: '#toolbar',
         page: true,
-        /*
-        data: [
-            {title: '任务1', createTime: '2019-07-18'},
-        ],
-        */
         cols: [[
             {type: 'checkbox'},
             {title: '任务名称', field:'title'},
@@ -63,6 +58,15 @@ layui.use(['jquery', 'table'], function () {
             type: 2,
             content: ['/web/task/save'],
             area: ['600px', '800px'],
+            yes: function (index) {
+            }
         });
+    });
+
+    window.addEventListener('message', function (event) {
+        let data = event.data;
+        if (data.action === 'save' && data.result === 'success') {
+            inst.reload()
+        }
     });
 });
