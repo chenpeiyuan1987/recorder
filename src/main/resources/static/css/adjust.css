@@ -1,3 +1,13 @@
 .layui-table-page {
     text-align: right;
 }
+
+.adjust[lay-event^="LAYTABLE"] {
+    position: relative;
+}
+.adjust[lay-event^="LAYTABLE"] .layui-table-tool-panel {
+    top: 35px;
+}
+.adjust[lay-event^="LAYTABLE"]:hover {
+    opacity: .9;
+}

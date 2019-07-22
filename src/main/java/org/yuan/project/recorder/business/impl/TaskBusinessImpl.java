@@ -1,13 +1,16 @@
 package org.yuan.project.recorder.business.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yuan.project.recorder.business.TaskBusiness;
 import org.yuan.project.recorder.entity.BaseEntity;
+import org.yuan.project.recorder.entity.Elapse;
 import org.yuan.project.recorder.entity.Task;
 import org.yuan.project.recorder.service.IElapseService;
 import org.yuan.project.recorder.service.ITaskService;
@@ -18,6 +21,7 @@ import org.yuan.project.recorder.vessel.read.TaskRo;
 import org.yuan.project.recorder.vessel.send.TaskSo;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 /**
@@ -44,7 +48,10 @@ public class TaskBusinessImpl extends BaseBusinessImpl implements TaskBusiness {
         Page<Task> page = new Page<>(curr, size);
         page.addOrder(OrderItem.desc("id"));
 
-        service.page(page);
+        LambdaQueryWrapper<Task> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(BaseEntity::getValid, BaseEntity.VALID_1);
+
+        service.page(page, wrapper);
 
         return convert(page, TaskSo.class);
     }
@@ -58,11 +65,12 @@ public class TaskBusinessImpl extends BaseBusinessImpl implements TaskBusiness {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void start(long id, long userId) {
+    public TaskSo start(long id, long userId) {
         // 校验参数
         Task origin = exist(id);
 
-        if (!Arrays.asList(Task.STATUS_2, Task.STATUS_3).contains(origin.getStatus())) {
+        if (!Arrays.asList(Task.STATUS_0, Task.STATUS_2, Task.STATUS_3).contains(origin.getStatus())) {
+            log.info("任务状态异常，当前状态[{}]", origin.getStatus());
             throw new Fault("任务状态异常");
         }
 
@@ -80,40 +88,50 @@ public class TaskBusinessImpl extends BaseBusinessImpl implements TaskBusiness {
 
         // 启动计时
         elapseService.start(id, userId);
+
+        return convert(task, TaskSo.class);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void pause(long id, long userId) {
+    public TaskSo pause(long id, String finishTime, long userId) {
         // 校验参数
         Task origin = exist(id);
 
         if (!origin.getStatus().equals(Task.STATUS_1)) {
-            throw new Fault("任务状态异常");
+            throw new Fault("任务不是启动状态");
         }
+        if (StringUtils.isBlank(finishTime)) {
+            throw new Fault("结束日期不能为空");
+        }
+        LocalDateTime date = LocalDateTime.parse(finishTime.replace(" ", "T"), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+
+        // 结束计时
+        Elapse elapse = elapseService.finis(id, date, userId);
+        int expend = elapse.getExpend();
 
         // 暂停任务
         Task task = new Task();
         task.setId(id);
         task.setStatus(Task.STATUS_2);
+        task.setActualElapse(origin.getActualElapse() + expend);
         task.setPauseTime(LocalDateTime.now());
         task.initUpdate(userId);
         if (!service.updateById(task)) {
             throw new Fault("暂停任务失败");
         }
 
-        // 结束计时
-        elapseService.finis(id, userId);
+        return convert(task, TaskSo.class);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void submit(long id, long userId) {
+    public TaskSo submit(long id, long userId) {
         // 校验参数
         Task origin = exist(id);
 
-        if (!Arrays.asList(Task.STATUS_1, Task.STATUS_2).contains(origin.getStatus())) {
-            throw new Fault("任务状态异常");
+        if (!origin.getStatus().equals(Task.STATUS_2)) {
+            throw new Fault("任务不是暂停状态");
         }
 
         // 提交任务
@@ -126,18 +144,17 @@ public class TaskBusinessImpl extends BaseBusinessImpl implements TaskBusiness {
             throw new Fault("提交任务失败");
         }
 
-        // 结束计时
-        elapseService.finis(id, userId);
+        return convert(task, TaskSo.class);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void finish(long id, long userId) {
+    public TaskSo finish(long id, long userId) {
         // 校验参数
         Task origin = exist(id);
 
         if (!origin.getStatus().equals(Task.STATUS_3)) {
-            throw new Fault("任务状态异常");
+            throw new Fault("任务不是提交状态");
         }
 
         // 完成任务
@@ -149,6 +166,8 @@ public class TaskBusinessImpl extends BaseBusinessImpl implements TaskBusiness {
         if (!service.updateById(task)) {
             throw new Fault("完成任务失败");
         }
+
+        return convert(task, TaskSo.class);
     }
 
     @Override
@@ -160,8 +179,11 @@ public class TaskBusinessImpl extends BaseBusinessImpl implements TaskBusiness {
 
             // 添加记录
             Task task = convert(ro, Task.class);
-            task.setStatus(Task.STATUS_0);
             task.initCreate(userId);
+            task.setPlanId(0L);
+            task.setReport("");
+            task.setStatus(Task.STATUS_0);
+            task.setActualElapse(0);
 
             if (!service.save(task)) {
                 throw new Fault("添加任务失败");
@@ -184,18 +206,22 @@ public class TaskBusinessImpl extends BaseBusinessImpl implements TaskBusiness {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(long id, long userId) {
-        // 校验参数
+    public void delete(long[] ids, long userId) {
+        for (long id : ids) {
+            // 校验参数
+            Task origin = exist(id);
+            if (origin.getStatus().equals(Task.STATUS_1)) {
+                throw new Fault("不能删除已启动的任务");
+            }
 
-        // 完成任务
-        Task task = new Task();
-        task.setId(id);
-        task.initDelete(userId);
-        if (!service.updateById(task)) {
-            throw new Fault("删除任务失败");
+            // 完成任务
+            Task task = new Task();
+            task.setId(id);
+            task.initDelete(userId);
+            if (!service.updateById(task)) {
+                throw new Fault("删除任务失败");
+            }
         }
-
-        // 结束计时
     }
 
 

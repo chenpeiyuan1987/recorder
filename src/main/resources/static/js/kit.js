@@ -53,6 +53,71 @@ layui.define(['jquery'], function (exports) {
     };
 
     kit.format = {
+        /**
+         * minutes -> hours:minutes
+         */
+        m2hm: function (m) {
+            let two = (n) => n > 9 ? n : '0' + n;
+
+            let h = parseInt(m / 60);
+            m = m % 60;
+            return two(h) + ':' + two(m);
+        },
+
+        /**
+         * hours:minutes -> minutes
+         */
+        hm2m: function (hm) {
+            hm = hm.split(':');
+            let m = parseInt(hm[0]) * 60 + parseInt(hm[1]);
+            return m;
+        },
+
+        /**
+         * seconds -> hours:minutes:seconds
+         */
+        s2hms: function (s) {
+            let two = (n) => n > 9 ? n : '0' + n;
+
+            let m = parseInt(s / 60);
+            let h = parseInt(m / 60);
+            m = m % 60;
+            s = s % 60;
+            return two(h) + ':' + two(m) + ':' + two(s);
+        },
+
+        /**
+         * hours:minutes -> seconds
+         */
+        hm2s: function (hm) {
+            hm = hm.split(':');
+            let s = parseInt(hm[0]) * 60 * 60 + parseInt(hm[1]) * 60;
+            return s;
+        },
+
+        /**
+         * date -> YYYY-MM-DD HH:mm:ss
+         */
+        d2dt: function (date) {
+            let two = (s) => {
+                return s > 10 ? s : '0' + s
+            };
+
+            let list = [
+                date.getFullYear(),
+                '-',
+                two(date.getMonth() + 1),
+                '-',
+                two(date.getDate()),
+                ' ',
+                two(date.getHours()),
+                ':',
+                two(date.getMinutes()),
+                ':',
+                two(date.getSeconds())
+            ];
+            return list.join('');
+        }
     };
 
     kit.render = {

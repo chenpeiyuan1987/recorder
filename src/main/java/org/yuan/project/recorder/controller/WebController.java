@@ -16,7 +16,8 @@ public class WebController {
 
     @GetMapping({
         "/task/index",
-        "/task/save"
+        "/task/save",
+        "/task/info",
     })
     public String index(HttpServletRequest req) {
         String path = req.getRequestURI().replace(ROOT, "");

@@ -1,9 +1,13 @@
 package org.yuan.project.recorder.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.yuan.project.recorder.business.ElapseBusiness;
 import org.yuan.project.recorder.utils.Result;
+import org.yuan.project.recorder.vessel.send.ElapseSo;
 
 /**
  * 耗时接口
@@ -12,8 +16,11 @@ import org.yuan.project.recorder.utils.Result;
  * @since 2019-07-15
  */
 @RestController
-@RequestMapping("/elapse")
+@RequestMapping("/api/elapse")
 public class ElapseController extends BaseController {
+
+    @Autowired
+    private ElapseBusiness elapseBusiness;
 
     /**
      * 开始计时
@@ -35,4 +42,16 @@ public class ElapseController extends BaseController {
         return Result.failure("接口未实现");
     }
 
+    /**
+     * 获取未结束的计时
+     * @param id
+     * @param type  1按任务查询，2按用户查询
+     * @return
+     */
+    @PostMapping("/unfinished")
+    public Object unfinished (long id, int type) {
+        ElapseSo so = elapseBusiness.unfinished(id, type);
+
+        return Result.success(so);
+    }
 }

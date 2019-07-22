@@ -10,8 +10,12 @@
     <result column="CREATER_ID" property="createrId" />
     <result column="UPDATER_ID" property="updaterId" />
     <result column="VALID" property="valid" />
+        <result column="PLAN_ID" property="planId" />
         <result column="TITLE" property="title" />
         <result column="INTRO" property="intro" />
+        <result column="TYPE" property="type" />
+        <result column="LEVEL" property="level" />
+        <result column="REPORT" property="report" />
         <result column="STATUS" property="status" />
         <result column="EXPECT_ELAPSE" property="expectElapse" />
         <result column="ACTUAL_ELAPSE" property="actualElapse" />
@@ -31,6 +35,7 @@
         CREATER_ID,
         UPDATER_ID,
         VALID,
+        PLAN_ID, TYPE, LEVEL, REPORT,
         TITLE, INTRO, STATUS, EXPECT_ELAPSE, ACTUAL_ELAPSE, EXPECT_START_TIME, EXPECT_FINIS_TIME, START_TIME, PAUSE_TIME, SUBMIT_TIME, FINISH_TIME
     </sql>
 

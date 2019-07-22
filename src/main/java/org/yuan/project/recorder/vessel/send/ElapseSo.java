@@ -1,9 +1,10 @@
 package org.yuan.project.recorder.vessel.send;
 
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -20,12 +21,19 @@ import lombok.experimental.Accessors;
 public class ElapseSo implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     /**
-     * 任务标识
+     * 消耗时间
      */
-    private Long taskId;
+    private Integer expend;
+
     /**
-     * 耗时状态
+     * 结束时间
      */
-    private Integer status;
+    private String finishTime;
+
+    /**
+     * 开始时间
+     */
+    private String createTime;
 }

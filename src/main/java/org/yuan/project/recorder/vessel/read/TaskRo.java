@@ -35,17 +35,21 @@ public class TaskRo implements Serializable {
      */
     private String intro;
     /**
-     * 任务状态
+     * 任务类型
      */
-    private Integer status;
+    private Integer type;
+    /**
+     * 任务级别
+     */
+    private Integer level;
+    /**
+     * 任务报告
+     */
+    private String report;
     /**
      * 预计耗时
      */
     private Integer expectElapse;
-    /**
-     * 实际耗时
-     */
-    private Integer actualElapse;
     /**
      * 预计开始时间
      */
@@ -54,20 +58,4 @@ public class TaskRo implements Serializable {
      * 预计结束时间
      */
     private String expectFinisTime;
-    /**
-     * 开始时间
-     */
-    private String startTime;
-    /**
-     * 暂停时间
-     */
-    private String pauseTime;
-    /**
-     * 提交时间
-     */
-    private String submitTime;
-    /**
-     * 完成时间
-     */
-    private String finishTime;
 }

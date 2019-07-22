@@ -52,6 +52,12 @@ public class Elapse extends BaseEntity {
     private Integer status;
 
     /**
+     * 耗时状态
+     */
+    @TableField("EXPEND")
+    private Integer expend;
+
+    /**
      * 结束时间
      */
     @TableField("FINISH_TIME")

@@ -161,12 +161,6 @@ public class Task extends BaseEntity {
     private LocalDateTime expectStartTime;
 
     /**
-     * 预计暂停时间
-     */
-    @TableField("EXPECT_PAUSE_TIME")
-    private LocalDateTime expectPauseTime;
-
-    /**
      * 预计结束时间
      */
     @TableField("EXPECT_FINIS_TIME")

@@ -49,7 +49,7 @@ public interface TaskBusiness {
      * @param id
      * @param userId
      */
-    void start (long id, long userId);
+    TaskSo start (long id, long userId);
 
     /**
      * 暂停任务
@@ -57,7 +57,7 @@ public interface TaskBusiness {
      * @param id
      * @param userId
      */
-    void pause (long id, long userId);
+    TaskSo pause (long id, String finishTime, long userId);
 
     /**
      * 提交任务
@@ -65,7 +65,7 @@ public interface TaskBusiness {
      * @param id
      * @param userId
      */
-    void submit (long id, long userId);
+    TaskSo submit (long id, long userId);
 
     /**
      * 完成任务
@@ -73,13 +73,13 @@ public interface TaskBusiness {
      * @param id
      * @param userId
      */
-    void finish (long id, long userId);
+    TaskSo finish (long id, long userId);
 
     /**
      * 删除任务
      *
-     * @param id
+     * @param ids
      * @param userId
      */
-    void delete (long id, long userId);
+    void delete (long[] ids, long userId);
 }

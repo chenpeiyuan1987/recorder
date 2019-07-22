@@ -8,6 +8,9 @@ import org.yuan.project.recorder.mapper.ElapseMapper;
 import org.yuan.project.recorder.service.IElapseService;
 import org.yuan.project.recorder.utils.Fault;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 /**
  * <p>
  *  服务实现类
@@ -21,14 +24,15 @@ public class ElapseServiceImpl extends BaseServiceImpl<ElapseMapper, Elapse> imp
 
     @Override
     public void start(long taskId, long userId) {
-        Elapse elapse = unfinishedByUserId(userId);
-        if (elapse != null) {
+        Elapse origin = unfinishedByUserId(userId);
+        if (origin != null) {
             throw new Fault("尚未关闭计时");
         }
 
         // 添加耗时
         Elapse insert = new Elapse();
         insert.setPlanId(0L);
+        insert.setExpend(0);
         insert.setTaskId(taskId);
         insert.setStatus(Elapse.STATUS_0);
         insert.initCreate(userId);
@@ -39,30 +43,33 @@ public class ElapseServiceImpl extends BaseServiceImpl<ElapseMapper, Elapse> imp
     }
 
     @Override
-    public void finis(long taskId, long userId) {
+    public Elapse finis(long taskId, LocalDateTime finishTime, long userId) {
         // 校验参数
-        Elapse elapse = unfinishedByTaskId(taskId);
-        if (elapse == null) {
+        Elapse origin = unfinishedByTaskId(taskId);
+        if (origin == null) {
             throw new Fault("尚未开启计时");
+        }
+        int minutes = (int)Duration.between(origin.getCreateTime(), finishTime).toMinutes();
+        if (minutes < 0) {
+            throw new Fault("结束时间小于开始时间");
         }
 
         // 修改耗时
         Elapse update = new Elapse();
-        update.setId(elapse.getId());
+        update.setId(origin.getId());
+        update.setExpend(minutes);
         update.setStatus(Elapse.STATUS_1);
         update.initUpdate(userId);
 
         if (!updateById(update)) {
             throw new Fault("关闭计时失败");
         }
+
+        return update;
     }
 
-    /**
-     * 获取未关闭计时
-     * @param id
-     * @return
-     */
-    private Elapse unfinishedByTaskId(long id) {
+    @Override
+    public Elapse unfinishedByTaskId(long id) {
         LambdaQueryWrapper<Elapse> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(BaseEntity::getValid, BaseEntity.VALID_1);
         wrapper.eq(Elapse::getStatus, Elapse.STATUS_0);
@@ -70,7 +77,8 @@ public class ElapseServiceImpl extends BaseServiceImpl<ElapseMapper, Elapse> imp
         return getOne(wrapper);
     }
 
-    private Elapse unfinishedByUserId (long id) {
+    @Override
+    public Elapse unfinishedByUserId (long id) {
         LambdaQueryWrapper<Elapse> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(BaseEntity::getValid, BaseEntity.VALID_1);
         wrapper.eq(Elapse::getStatus, Elapse.STATUS_0);

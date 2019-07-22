@@ -64,9 +64,9 @@ public class TaskController extends BaseController {
     public Object start(long id) {
         log.info("启动任务");
 
-        taskBusiness.start(id, getUserId());
+        Object res = taskBusiness.start(id, getUserId());
 
-        return Result.success();
+        return Result.success(res);
     }
 
     /**
@@ -75,12 +75,12 @@ public class TaskController extends BaseController {
      * @return
      */
     @PostMapping("/pause")
-    public Object pause(long id) {
+    public Object pause(long id, String finishTime) {
         log.info("暂停任务");
 
-        taskBusiness.pause(id, getUserId());
+        Object res =  taskBusiness.pause(id, finishTime, getUserId());
 
-        return Result.success();
+        return Result.success(res);
     }
 
     /**
@@ -92,9 +92,9 @@ public class TaskController extends BaseController {
     public Object submit(long id) {
         log.info("提交任务");
 
-        taskBusiness.submit(id, getUserId());
+        Object res = taskBusiness.submit(id, getUserId());
 
-        return Result.success();
+        return Result.success(res);
     }
 
     /**
@@ -107,22 +107,22 @@ public class TaskController extends BaseController {
     public Object finish(long id) {
         log.info("完成任务");
 
-        taskBusiness.finish(id, getUserId());
+        Object res = taskBusiness.finish(id, getUserId());
 
-        return Result.success();
+        return Result.success(res);
     }
 
     /**
      * 删除任务
      *
-     * @param id
+     * @param ids
      * @return
      */
     @PostMapping("/delete")
-    public Object delete(long id) {
+    public Object delete(long[] ids) {
         log.info("删除任务");
 
-        taskBusiness.delete(id, getUserId());
+        taskBusiness.delete(ids, getUserId());
 
         return Result.success();
     }
