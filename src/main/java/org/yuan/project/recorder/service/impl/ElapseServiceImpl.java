@@ -56,10 +56,11 @@ public class ElapseServiceImpl extends BaseServiceImpl<ElapseMapper, Elapse> imp
 
         // 修改耗时
         Elapse update = new Elapse();
+        update.initUpdate(userId);
         update.setId(origin.getId());
         update.setExpend(minutes);
+        update.setFinishTime(finishTime);
         update.setStatus(Elapse.STATUS_1);
-        update.initUpdate(userId);
 
         if (!updateById(update)) {
             throw new Fault("关闭计时失败");

@@ -33,7 +33,8 @@ layui.use(['jquery', 'form', 'kit', 'laydate'], function ($, form, kit, laydate)
             // 设置颜色
             if (type === undefined || type === 2) {
                 ['statusName', 'startTime'].forEach(function (name) {
-                    $('[name="' + name + '"]').val(d[name]).css({color: 'red'});
+                    let $elem = $('[name="' + name + '"]').css({color: 'red'});
+                    d[name] && $elem.val(d[name]);
                 });
             }
         },
@@ -89,11 +90,14 @@ layui.use(['jquery', 'form', 'kit', 'laydate'], function ($, form, kit, laydate)
     let $elapse = $('[name="actualElapse"]');
     let clock = new Clock({
         start: function () {
-            $elapse.css({color: 'red'});
-            return kit.format.hm2s($elapse.val());
+            let val = $elapse.val();
+            $elapse.css({color: 'red'}).attr('data-val', val);;
+            return 0;
         },
         cycle: function (s) {
-            $elapse.val(kit.format.s2hms(s));
+            let b = kit.format.hm2s($elapse.attr('data-val'));
+            let val = kit.format.s2hms(s + b) + ' / ' + kit.format.s2hms(s);
+            $elapse.val(val);
         },
         finis: function (elapse) {
             $elapse.css({color: ''});
@@ -159,9 +163,9 @@ layui.use(['jquery', 'form', 'kit', 'laydate'], function ($, form, kit, laydate)
                 elapse = res.data;
 
                 clock.start(function () {
-                    let s = task.actualElapse * 60;
+                    $elapse.css({color: 'red'}).attr('data-val', $elapse.val());
                     let a = new Date().getTime() - new Date(elapse.createTime).getTime();
-                    return s + parseInt(a / 1000);
+                    return parseInt(a / 1000);
                 });
             });
         }
@@ -228,9 +232,9 @@ layui.use(['jquery', 'form', 'kit', 'laydate'], function ($, form, kit, laydate)
                     handle[d.status](d);
                     clock.start();
 
-                    getElapse(taskId, function (res) {
-                        elapse = res.data;
-                    });
+//                    getElapse(taskId, function (res) {
+//                        elapse = res.data;
+//                    });
                 }
             });
         },
