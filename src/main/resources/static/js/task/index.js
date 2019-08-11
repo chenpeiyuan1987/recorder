@@ -33,7 +33,7 @@ layui.use(['jquery', 'table', 'layer', 'kit'], function () {
             type: 2,
             title: '',
             content: '',
-            area: ['600px', '500px'],
+            area: ['600px', '630px'],
             btn: ['确定'],
             yes: function (index, $elem) {
                 let iframe = $elem.find('iframe').get(0);
@@ -52,7 +52,6 @@ layui.use(['jquery', 'table', 'layer', 'kit'], function () {
             save({
                 title: '添加任务',
                 content: '/web/task/save',
-                area: ['600px', '500px'],
             });
         },
         /**
@@ -63,7 +62,6 @@ layui.use(['jquery', 'table', 'layer', 'kit'], function () {
             save({
                 title: '编辑任务',
                 content: '/web/task/save?id=' + id,
-                area: ['600px', '800px'],
             });
         },
         /**
@@ -101,13 +99,16 @@ layui.use(['jquery', 'table', 'layer', 'kit'], function () {
         clone: function (data) {
             layer.msg('该功能尚未完成');
         },
+        /**
+         * 任务详情
+         */
         detail: function (data) {
             let id = data.data.id;
             layer.open({
                 type: 2,
                 title: '任务详情',
                 content: '/web/task/info?id=' + id,
-                area: ['600px', '850px'],
+                area: ['600px', '900px'],
             });
         }
     };

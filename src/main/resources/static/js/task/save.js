@@ -70,7 +70,7 @@ layui.use(['jquery', 'form', 'laydate', 'kit'], function ($, form, laydate, kit)
             min: new Date().getTime(),
             done: function(value){
                 if ($expectElapse.val()) {
-                    setExpectFinisTime($expectStartTime.val(), $expectElapse.val());
+                    setExpectFinisTime(value, $expectElapse.val());
                 }
             }
         });

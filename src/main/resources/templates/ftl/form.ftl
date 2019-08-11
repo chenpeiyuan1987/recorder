@@ -25,7 +25,7 @@
 <div class="layui-form-item layui-form-text">
     <label class="layui-form-label">${label}</label>
     <div class="layui-input-block">
-        <textarea name="${name}" lay-verify="${verify}" placeholder="请输入内容" class="layui-textarea"></textarea>
+        <textarea name="${name}" lay-verify="${verify}" rows="6" class="layui-textarea"></textarea>
     </div>
 </div>
 </#macro>
